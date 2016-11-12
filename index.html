@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Number Checker</title>
+    <!-- Added link to the jQuery Library -->
+    <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+    <!-- Added a link to Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="jumbotron">
+        <h1 class="text-left">Crystals Collector!</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <p> You will be given a random number at the start of the game.
+                <p> There are four crystals below. By clicking on a cyrstal you will add a specific amount of points to your total score.
+                    <p> You win the game by watching your total score to random number, you lose the game if your total score goes above the random number.
+                        <p> The value of each crystal is hidden from you until you click on it.
+                            <p> Each time when the game starts, the game will change the values of each crystal.
+                            </p>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Left Panel -->
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Goal</h3>
+                </div>
+                <div class="panel-body text-center">
+                    <h1 id="Goal">do a number generator here</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">This is a record number</h3>
+        </div>
+        <div class="panel-body text-center">
+            <h1 id="record">A number goes here</h1>
+        </div>
+    </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">You Pick</h3>
+            </div>
+            <div class="panel-body text-center">
+                <button id="buttonruby" class="btn btn-danger" value=img>
+                    <img src="assets/images/ruby.png" alt="rubyimg" Height=25px Width=25px>
+                    <h1></h1></button>
+                <button id="buttondiamond" class="btn btn-danger" value=img>
+                    <img src="assets/images/diamond.jpg" alt="diamondimg" Height=25px Width=25px>
+                    <h1></h1></button>
+                <button id="buttonemerald" class="btn btn-danger" value=img>
+                    <img src="assets/images/emerald.jpg" alt="emerald.jpg" Height=25px Width=25px>
+                    <h1></h1></button>
+                <button id="green gem" class="btn btn-danger" value=img>
+                    <img src="assets/images/green gem.png" alt="green gemimg" Height=25px Width=25px>
+                    <h1></h1></button>
+            </div>
+        </div>
+    </div>
+    <div class=col-lg-6>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Your Score Is</h3>
+            </div>
+            <div class="panel-body text-center">
+                <h1 id="Score"></h1>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function() {
+
+        // Initial Variables
+        var yourPick = 0;
+        var computerPick = Math.floor(Math.random() * 4) + 1;
+        var lockGame = false;
+
+        // We log the computer's pick to console to make it easier to troubleshoot
+        console.log("Computer Pick: " + computerPick);
+
+        // Here we create the on click event that gets the user"s pick
+        $("button").on("click", function() {
+
+            // Here this lockGame line prevents the user from changing the option after the game is done.
+            if (lockGame !== true) {
+
+                // We get the value associated with the button the user picked from here
+                yourPick = $(this).attr("value");
+                console.log("Your Pick: " + yourPick);
+
+                // We then reveal the computer's pick in the html
+                $("#computerPick").html(computerPick);
+
+                // If your pick matched the computer's pick you let them know.
+                if (parseInt(yourPick) === computerPick) {
+                    $("#result").html("Yep! You got it! Refresh the page to play again.");
+                    lockGame = true;
+                }
+
+                // If the numbers did not match. You also let them know
+                else {
+                    $("#result").html("Nope. Refresh the page to play again.");
+                    lockGame = true;
+                }
+            }
+
+        });
+    });
+    </script>
+</body>
+
+</html>
