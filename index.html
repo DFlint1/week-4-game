@@ -29,95 +29,201 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">computerPick</h3>
+                    <h3 class="panel-title">Computer's Pick</h3>
                 </div>
-                  <div class="panel-body text-center">
-                <h1 id="computerPick">click a gem to see the your goal</h1>
+                <div class="panel-body text-center">
+                    <h1 id="computerPick">click a gem to see the your goal</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1 class="panel-title">This is your record number</h1>
+                </div>
+                <div class="panel-body text-center">
+                    <div id="game">
+                        <p>Select a gem to start playing</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Your Pick</h3>
+                </div>
+                <div class="panel-body text-center">
+                    <div id="yourPick"></div>
+                    <button class="buttonruby" class="btn btn-danger">
+                        <img src="assets/images/ruby.png" alt="rubyimg" Height=25px Width=25px>
+                        <h1></h1></button>
+                    <button class="buttondiamond" class="btn btn-danger">
+                        <img src="assets/images/diamond.jpg" alt="diamondimg" Height=25px Width=25px>
+                        <h1></h1></button>
+                    <button class="buttonemerald" class="btn btn-danger">
+                        <img src="assets/images/emerald.jpg" alt="emerald.jpg" Height=25px Width=25px>
+                        <h1></h1></button>
+                    <button class="buttongreengem" class="btn btn-danger"><img src="assets/images/green gem.png" alt="green gemimg" Height=25px Width=25px>
+                        <h1></h1></button>
+                </div>
+            </div>
+        </div>
+        <div class=col-lg-6>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Your Total Score Is</h3>
+                </div>
+                <div class="panel-body text-center">
+                    <h1 id="userScore">Your Score</h1>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">This is a record number</h3>
-            </div>
-            <div class="panel-body text-center">
-                <h1 id="record">A number goes here</h1>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">You Pick</h3>
-            </div>
-            <div class="panel-body text-center">
-                <button id="buttonruby" class="btn btn-danger" value=img>
-                    <img src="assets/images/ruby.png" alt="rubyimg" Height=25px Width=25px>
-                    <h1></h1></button>
-                <button id="buttondiamond" class="btn btn-danger" value=img>
-                    <img src="assets/images/diamond.jpg" alt="diamondimg" Height=25px Width=25px>
-                    <h1></h1></button>
-                <button id="buttonemerald" class="btn btn-danger" value=img>
-                    <img src="assets/images/emerald.jpg" alt="emerald.jpg" Height=25px Width=25px>
-                    <h1></h1></button>
-                <button id="green gem" class="btn btn-danger" value=img>
-                    <img src="assets/images/green gem.png" alt="green gemimg" Height=25px Width=25px>
-                    <h1></h1></button>
-            </div>
-        </div>
-    </div>
-    <div class=col-lg-6>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Your Total Score Is</h3>
-            </div>
-            <div class="panel-body text-center">
-                <h1 id="Score"></h1>
-            </div>
-        </div>
-    </div>
-    </div>
-
     <script type="text/javascript">
     $(document).ready(function() {
 
         // Initial Variables
+        var buttonruby = value = Math.floor(Math.random() * 12) + 1;
+        var buttondiamond = value = Math.floor(Math.random() * 12) + 1;
+        var buttonemerald = value = Math.floor(Math.random() * 12) + 1;
+        var buttongreengem = value = Math.floor(Math.random() * 12) + 1;
         var yourPick = 0;
-        var computerPick = Math.floor(Math.random() * 120) + 19;
-        var lockGame = false;
+        var computerPick = Math.floor(Math.random() * 102) + 19;
+        // var lockGame = false;
+        var userScore = 0;
+        var wins = 0;
+        var losses = 0;
+        // var game = 0;
+
+
+
+        //Define the value of each variable
+        $(".buttonruby").click(function() {
+            var input = $(this).attr("value");
+        })
+
+        $(".buttondiamond").click(function() {
+            var input = $(this).attr("value");
+        })
+        $(".buttonemerald").click(function() {
+            var input = $(this).attr("value");
+        })
+        $(".buttongreengem").click(function() {
+            var input = $(this).attr("value");
+        })
+
 
         // We log the computer's pick to console to make it easier to troubleshoot
         console.log("Computer Pick: " + computerPick);
 
-        // Here we create the on click event that gets the user"s pick
-        $("button").on("click", function() {
+        // Here this lockGame line prevents the user from changing the option after the game is done.
+        // if (lockGame !== true) {
 
-            // Here this lockGame line prevents the user from changing the option after the game is done.
-            if (lockGame !== true) {
+            // We get the value associated with the button the user picked from here
+            yourPick = $(this).attr("value");
+            console.log("Your Pick: " + yourPick);
 
-                // We get the value associated with the button the user picked from here
-                yourPick = $(this).attr("value");
-                console.log("Your Pick: " + yourPick);
+            // We then reveal the computer's pick in the html
+            $("#computerPick").html(computerPick);
 
-                // We then reveal the computer's pick in the html
-                $("#computerPick").html(computerPick);
+            //user picks another button and then the clicked gem value gets added to the total score.
+            $('.buttonruby').click(function() {
+                console.log("ruby value = " + buttonruby.value);
+                userScore = buttonruby + userScore;
+                console.log(userScore);
+                $("#userScore").text(userScore);
+            });
 
-                // If your pick matched the computer's pick you let them know.
-                if (parseInt(yourPick) === computerPick) {
-                    $("#result").html("Yep! You got it! Refresh the page to play again.");
-                    lockGame = true;
+            $('.buttondiamond').click(function() {
+                console.log("diamond value = " + buttondiamond.value);
+                userScore = buttondiamond + userScore;
+                console.log(userScore);
+                $("#userScore").text(userScore);
+            });
+
+            $('.buttonemerald').click(function() {
+                console.log("emerald value = " + buttonemerald.value);
+                userScore = buttonemerald + userScore;
+                console.log(userScore);
+                $("#userScore").text(userScore);
+            });
+
+            $('.buttongreengem').click(function() {
+                console.log("greengem value = " + buttongreengem.value);
+                userScore = buttongreengem + userScore;
+                console.log(userScore);
+                $("#userScore").text(userScore);
+
+            });
+
+
+     
+          for (var i = 0; i < computerPick.length; i++) {
+             $("#game").on("click", function(){
+                if(userScore < computerPick) {
+                    text("click again");
+                } else if (userScore === computerPick) {
+                    wins ++;
+                    text("wins: " + wins);
+                    $("win").append(game);
+                } else if (userScore > computerPick) {
+                    losses ++;
+                    text("losses: " + losses);
+                    ResetGlobalVariables();
+                    $("losses").append(game);
+
                 }
+                       
+       
 
-                // If the numbers did not match. You also let them know
-                else {
-                    $("#result").html("Nope. Refresh the page to play again.");
-                    lockGame = true;
-                }
-            }
+        var html = "<p>Select a gem to start playing</p>" +
+            "<p>wins: " + wins + "</p>" +
+            "<p>losses: " + losses + "</p>";
 
-        });
+        document.querySelector('#game').innerHTML = html;
+      });
+           } 
     });
+    
+
+
+        //     $("#recordwin").html("You win! Refresh the page to play again.");
+        //     lockGame = true;
+        // } else if (userScore > computerPick) {
+        //     $("#recordloss").html("You lose! Refresh the page to play again.");
+        //     lockGame = true;
+        // }
+
+        // if (recordwin == "recordwin") {
+        //     recordwin = recordwin + 1;
+        // }$("#recordwin").html(recordwin);
+
+        // if (recordloss = "recordloss") {
+        //     recordloss = recordloss + 1;
+        // }
+
+        // $("#recordloss").html(recordloss);
+
+
+
+
+
+    // alert("record is " + userScore);
+
+
+
+    // //If your pick matched the computer's pick you let them know.
+    // if (parseInt(yourPick) === computerPick) {
+    //     $("#result").html("Yep! You got it! Refresh the page to play again.");
+    //     lockGame = true;
+    // }
+
+
+    // // If the numbers did not match. You also let them know
+    // else {
+    //     $("#result").html("Nope. Refresh the page to play again.");
+    //     lockGame = true;
     </script>
 </body>
 
