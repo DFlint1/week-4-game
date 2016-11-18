@@ -43,6 +43,8 @@
                 </div>
                 <div class="panel-body text-center">
                     <div id="game">
+                    <div class = "wins">
+                    <div class = "losses">
                         <p>Select a gem to start playing</p>
                     </div>
                 </div>
@@ -94,7 +96,7 @@
         var userScore = 0;
         var wins = 0;
         var losses = 0;
-        // var game = 0;
+        var game = 0;
 
 
 
@@ -120,72 +122,100 @@
         // Here this lockGame line prevents the user from changing the option after the game is done.
         // if (lockGame !== true) {
 
-            // We get the value associated with the button the user picked from here
-            yourPick = $(this).attr("value");
-            console.log("Your Pick: " + yourPick);
+        // We get the value associated with the button the user picked from here
+        yourPick = $(this).attr("value");
+        console.log("Your Pick: " + yourPick);
 
-            // We then reveal the computer's pick in the html
-            $("#computerPick").html(computerPick);
+        // We then reveal the computer's pick in the html
+        $("#computerPick").html(computerPick);
 
-            //user picks another button and then the clicked gem value gets added to the total score.
-            $('.buttonruby').click(function() {
-                console.log("ruby value = " + buttonruby.value);
-                userScore = buttonruby + userScore;
-                console.log(userScore);
-                $("#userScore").text(userScore);
-            });
+        //user picks another button and then the clicked gem value gets added to the total score.
+        $('.buttonruby').click(function() {
+            console.log("ruby value = " + buttonruby.value);
+            userScore = buttonruby + userScore;
+            console.log(userScore);
+            winorLose(userScore);
+            html(userScore);
+           
+        });
 
-            $('.buttondiamond').click(function() {
-                console.log("diamond value = " + buttondiamond.value);
-                userScore = buttondiamond + userScore;
-                console.log(userScore);
-                $("#userScore").text(userScore);
-            });
+        $('.buttondiamond').click(function() {
+            html("diamond value = " + buttondiamond);
+            userScore = buttondiamond + userScore;
+            console.log(userScore);
+            winOrLose(userScore);
+            html(userScore);
+           
+        });
 
-            $('.buttonemerald').click(function() {
-                console.log("emerald value = " + buttonemerald.value);
-                userScore = buttonemerald + userScore;
-                console.log(userScore);
-                $("#userScore").text(userScore);
-            });
+        $('.buttonemerald').click(function() {
+            console.log("emerald value = " + buttonemerald.value);
+            userScore = buttonemerald + userScore;
+            console.log(userScore);
+            winorLose(userScore);
+            html(userScore);
+            
+        });
 
-            $('.buttongreengem').click(function() {
-                console.log("greengem value = " + buttongreengem.value);
-                userScore = buttongreengem + userScore;
-                console.log(userScore);
-                $("#userScore").text(userScore);
+        $('.buttongreengem').click(function() {
+            console.log("greengem value = " + buttongreengem.value);
+            userScore = buttongreengem + userScore;
+            console.log(userScore);
+            winorLose(userScore);
+            html(userScore);
+            
 
-            });
+        });
 
 
-     
-          for (var i = 0; i < computerPick.length; i++) {
-             $("#game").on("click", function(){
-                if(userScore < computerPick) {
-                    text("click again");
-                } else if (userScore === computerPick) {
-                    wins ++;
-                    text("wins: " + wins);
-                    $("win").append(game);
-                } else if (userScore > computerPick) {
-                    losses ++;
-                    text("losses: " + losses);
-                    ResetGlobalVariables();
-                    $("losses").append(game);
-
-                }
-                       
        
+        function winOrLose(userScore) {
+              if (userScore < computerPick) {
+                $("#userScore").html(userScore);
+                $("#game").text("click again"); 
+            } else if (userScore === computerPick) {
+                wins++;
+                // console.log("User has won! Wins= " + wins); 
+                $("#userScore").html(userScore);
+                $(".wins").html("wins: " + wins); 
+            } else if (userScore > computerPick) {
+                losses++;
+                $(".losses").html("losses: " + losses);
+                then reset userScore = 0;
+                 // Antonio - need to have this pointed somewhere, text is not the correct syntax adding losses to test
+                //Antonio - when the user losses or wins, the total score needs to be reset and the random number needs to be picked again...add that at each if here for now.
+                console.log("User has lost! Losses= " + losses); //Antonio - Add more console statements so you can debug easy
+                // ResetGlobalVariables(); //where is this defined? 
+                $("losses").append(game);
+                $("#userScore").append(userScore)
+            }
+            // });
+        }
+        $("#userScore").text(userScore);
+                //hint! computer choice needs to be reset on wins and losses!
+                computerPick = Math.floor(Math.random() * 102) + 19;
+                //now that computer pick is reset, need to write the reset number.
+                $("#computerPick").html(computerPick);
+                //now that user score is reset, need to write the reset number.
+                userScore = 0;
+                $("#userScore").text(userScore);
 
-        var html = "<p>Select a gem to start playing</p>" +
+                
+                 var html = "<p>Select a gem to start playing</p>" +
             "<p>wins: " + wins + "</p>" +
             "<p>losses: " + losses + "</p>";
 
         document.querySelector('#game').innerHTML = html;
-      });
-           } 
-    });
-    
+        // }
+        // var html = "<p>Select a gem to start playing</p>" +
+        //     "<p>wins: " + wins + "</p>" +
+        //     "<p>losses: " + losses + "</p>";
+        // document.querySelector('#game').innerHTML = html;
+        // }
+
+
+
+
 
 
         //     $("#recordwin").html("You win! Refresh the page to play again.");
@@ -209,21 +239,22 @@
 
 
 
-    // alert("record is " + userScore);
+        // alert("record is " + userScore);
 
 
 
-    // //If your pick matched the computer's pick you let them know.
-    // if (parseInt(yourPick) === computerPick) {
-    //     $("#result").html("Yep! You got it! Refresh the page to play again.");
-    //     lockGame = true;
-    // }
+        // //If your pick matched the computer's pick you let them know.
+        // if (parseInt(yourPick) === computerPick) {
+        //     $("#result").html("Yep! You got it! Refresh the page to play again.");
+        //     lockGame = true;
+        // }
 
 
-    // // If the numbers did not match. You also let them know
-    // else {
-    //     $("#result").html("Nope. Refresh the page to play again.");
-    //     lockGame = true;
+        // // If the numbers did not match. You also let them know
+        // else {
+        //     $("#result").html("Nope. Refresh the page to play again.");
+        //     lockGame = true;
+    });
     </script>
 </body>
 
